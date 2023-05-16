@@ -66,4 +66,8 @@ public class UserServiceImpl {
     public List<UserInfo> searchUsers(String keyword) {
         return userRepository.findByKeyword(keyword);
     }
+
+    public Optional<UserInfo> getUserdata(String username) {
+            return  userRepository.findByUsername(username);
+    }
 }

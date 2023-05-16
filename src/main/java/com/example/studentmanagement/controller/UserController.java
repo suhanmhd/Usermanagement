@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 
 @Controller
@@ -35,14 +36,19 @@ public class UserController {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         String username = authentication.getName();
-//
+
+
         if (((Collection<?>) authorities).contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             return "redirect:/admin/adminhome";
         } else {
-            model.addAttribute("username", username);
-//            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//            model.addAttribute("username", userDetails.getUsername());
-//            model.addAttribute("email","email");
+
+            Optional<UserInfo> users = userService.getUserdata(username);
+            UserInfo user = users.orElse(null);
+
+
+            model.addAttribute("user", user);
+
+
             return "home";
         }
     }
