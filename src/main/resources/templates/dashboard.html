@@ -53,7 +53,6 @@
         <th scope="col">Action</th>
 
 
-
     </tr>
     </th>
     </thead>
@@ -64,7 +63,9 @@
         <td th:text="${users.firstname}"></td>
         <td th:text="${users.email}"></td>
         <td><a th:href="@{/admin/edit/{id}(id=${users.id})}" class="btn btn-warning">Edit</a>
-            <a th:href="@{/admin/delete/{id}(id=${users.id})}" class="btn btn-primary">Delete</a></td>
+            <a th:href="@{/admin/delete/{id}(id=${users.id})}" class="btn btn-primary">Delete</a>
+            <a th:href="@{/admin/delete-email/{id}(id=${users.id})}" class="btn btn-danger">Email-Delete</a>
+        </td>
 
 
     </tr>

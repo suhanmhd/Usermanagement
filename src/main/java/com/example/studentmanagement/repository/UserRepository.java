@@ -16,9 +16,13 @@ public interface UserRepository extends JpaRepository<UserInfo,Long> {
    List<UserInfo> findByUsernameNot(String username);
 
     Optional<UserInfo> findByEmail(String email);
+//    Optional<UserInfo> findById(Long id);
 
     @Query(value = "select * from user_info where username like %:keyword% or firstname like  %:keyword%", nativeQuery = true)
     List<UserInfo> findByKeyword(@Param("keyword") String keyword);
+
+//     @Query(value = "UPDATE user_info SET email = NULL WHERE id = :id",nativeQuery = true )
+//     UserInfo deleteEmail(@Param("id")  Long id);
 
 
 

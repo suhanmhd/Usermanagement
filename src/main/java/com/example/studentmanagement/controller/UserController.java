@@ -1,8 +1,7 @@
 package com.example.studentmanagement.controller;
 
-import com.example.studentmanagement.config.UserInfoUserDetails;
 import com.example.studentmanagement.entity.UserInfo;
-import com.example.studentmanagement.service.UserServiceImpl;
+import com.example.studentmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -10,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +20,10 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
-    @Value("${test}")
-    String test;
+
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
 
 
@@ -55,7 +52,7 @@ public class UserController {
     @PostMapping("/user")
     public String createuser(@ModelAttribute UserInfo userInfo,Model model){
         userInfo.setRoles("ROLE_USER");
-        String result =userService.addUser(userInfo,model);
+        String result = userService.addUser(userInfo,model);
         return  result;
     }
 
@@ -65,14 +62,5 @@ public class UserController {
         return "signup";
     }
 
-    @GetMapping("/login")
-    public String loginpage(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
-        }
-
-        return "home";
-    }
 }

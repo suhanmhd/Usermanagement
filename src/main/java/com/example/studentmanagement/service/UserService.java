@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl {
+public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -36,6 +36,7 @@ public class UserServiceImpl {
                 return "signup";
 
             } else {
+
                 userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
                 userRepository.save(userInfo);
                 return "login";
@@ -70,4 +71,16 @@ public class UserServiceImpl {
     public Optional<UserInfo> getUserdata(String username) {
             return  userRepository.findByUsername(username);
     }
+
+    public void deleteEmail(Long id) {
+           // userRepository.deleteEmail(id);
+    }
+
+    public UserInfo findById(Long id) {
+            return userRepository.findById(id).orElse(null);
+    }
+
+//    public Optional<UserInfo> getUserById(Long id) {
+//            return userRepository.findById(id);
+//    }
 }

@@ -1,7 +1,7 @@
 package com.example.studentmanagement.controller;
 
 import com.example.studentmanagement.entity.UserInfo;
-import com.example.studentmanagement.service.UserServiceImpl;
+import com.example.studentmanagement.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
     @GetMapping("/adminhome")
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -90,6 +90,18 @@ public class AdminController {
         userService.delete(id);
         return "redirect:/admin/adminhome";
     }
+
+    @GetMapping("/delete-email/{id}")
+
+    public  String deleteUserByEmail(@PathVariable Long id){
+
+    // userService.deleteEmail(id);
+        UserInfo userInfo = userService.findById(id);
+        userInfo.setEmail(null);
+        userService.save(userInfo);
+        return "redirect:/admin/adminhome";
+    }
+
 
     @GetMapping("/logout")
     public String handleLogoutRequest(HttpServletRequest request) {

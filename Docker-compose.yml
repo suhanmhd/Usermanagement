@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  app:
+    image: studentmanagement:latest
+
+    ports:
+       - 8082:8082
+
+    environment:
+          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/studentmanagement
+          - SPRING_DATASOURCE_USERNAME=root
+          - SPRING_DATASOURCE_PASSWORD=sh98@sh98
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.27
+    environment:
+      - DATABASE_HOST:docker.mysql
+
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=studentmanagement
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=root
+#    ports:
+#      - 3306:3306
+#    networks:
+#      - your-network
+#networks:
+#  your-network:

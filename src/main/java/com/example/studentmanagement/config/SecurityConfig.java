@@ -44,7 +44,8 @@ public UserDetailsService userDetailsService(){
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+
+    return new BCryptPasswordEncoder();
     }
 
     @Bean
